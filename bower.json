@@ -1,16 +1,16 @@
 {
-  "name": "things-msg-box",
+  "name": "things-msg-box-behavior",
   "version": "0.0.1",
   "authors": [
     "Hatio Lab. <heartyoh@hatiolab.com>"
   ],
-  "description": "An element providing badge button.",
+  "description": "메시지 박스를 표시하는 Behavior",
   "keywords": [
     "web-component",
     "polymer",
     "seed"
   ],
-  "main": "things-msg-box.html",
+  "main": "things-msg-box-behavior.html",
   "license": "http://polymer.github.io/LICENSE.txt",
   "homepage": "https://github.com/ThingsElements/seed-element/",
   "ignore": [
@@ -25,6 +25,7 @@
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "web-component-tester": "^4.0.0",
+    "paper-button": "^1.0.11",
     "iron-demo-helpers": "^1.2.3"
   }
 }
