@@ -1,9 +1,10 @@
-<link rel="import" href="../polymer/polymer.html">
 <script src="../sweetalert/dist/sweetalert-dev.js"></script>
+
 <link rel="stylesheet" href="../sweetalert/dist/sweetalert.css">
 <link rel="import" href="../paper-toast/paper-toast.html">
 
 <script>
+
 window.Things = window.Things || {};
 
 /**
@@ -13,9 +14,7 @@ window.Things = window.Things || {};
  * 각 메시지 박스 타입의 Function은 information - openInfoMsg, confirmation - openConfirmMsg, prompt - openPromptMsg로 구성된다.
  * confirmation과 prompt 타입은 사용자 응답이 'OK' 성일 경우 Callback 함수를 넘길 수 있다. (API 참조)
  * 각 Function은 config로 메시지 박스를 구성하는데 configuration 요소는 다음과 같다.
- * 
- * showToastMsg는 things-show-tost Event만 날린다.
- * 
+ *
  * config
  * 1) type : 메시지 박스의 아이콘 - info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나 
  * 2) title : 메시지 박스의 타이틀
@@ -41,8 +40,6 @@ window.Things = window.Things || {};
  * 22) showLoaderOnConfirm: 값이 true이면 Cancel과 Confirm 버튼을 비활성화한다. 기본값은 false
  *
  * @polymerBehavior Things.MsgBoxBehavior
- * 
- * @demo demo/index.html
  */
 Things.MsgBoxBehavior = {
   
