@@ -2,6 +2,8 @@
 
 <link rel="stylesheet" href="../sweetalert/dist/sweetalert.css">
 <link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../things-view-open-behavior/things-view-open-behavior.html">
+<link rel="import" href="/things-error-page.html">
 
 <script>
 
@@ -41,7 +43,7 @@ window.Things = window.Things || {};
  *
  * @polymerBehavior Things.MsgBoxBehavior
  */
-Things.MsgBoxBehavior = {
+Things.MsgBoxBehaviorImpl = {
   
   /**
    * Open Information Message Box
@@ -127,16 +129,14 @@ Things.MsgBoxBehavior = {
    * Elidom 프레임워크에서 던진 에러 처리
    */
   openElidomResponseError: function(response) {
-    var htmlText = '<span><a href="error_page?id=' + response.error_id + '" target="_blank">Error ID : ' + response.error_id + '</a>' +
-                   '<br/><br/><span>Status</span> : ' + response.status + 
-                   '<br/><br/><p><span>Message</span> : ' + response.msg;
+    if(response.error_id) {
+      var errorPage = document.createElement('things-error-page');
+      errorPage.errorId = response.error_id;
+      this.openPopupView(errorPage, true);
 
-    this.openInfoMsg({
-      type : 'error',
-      title : 'Error Code (' + response.code + ')',
-      text : htmlText,
-      html : true
-    });
+    } else {
+      this.openUnkownError(response);
+    }
   },
 
   /**
@@ -162,6 +162,11 @@ Things.MsgBoxBehavior = {
     var event = new CustomEvent('things-show-tost', { 'detail': eventDetail });
     document.dispatchEvent(event);
   }
-
 };
+
+Things.MsgBoxBehavior = [
+  Things.MsgBoxBehaviorImpl,
+  Things.ViewOpenBehavior
+];
+
 </script>

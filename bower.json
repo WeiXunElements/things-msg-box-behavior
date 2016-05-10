@@ -1,6 +1,6 @@
 {
   "name": "things-msg-box-behavior",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "Hatio Lab. <heartyoh@hatiolab.com>"
   ],
@@ -10,15 +10,22 @@
     "polymer",
     "seed"
   ],
-  "main": "things-msg-box-behavior.html",
+  "main": "elements.html",
   "license": "http://polymer.github.io/LICENSE.txt",
   "homepage": "https://github.com/ThingsElements/seed-element/",
   "ignore": [
     "/.*",
     "/test/"
   ],
+
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
+    "paper-input": "PolymerElements/paper-input#^1.1.11",
+    "paper-material": "PolymerElements/paper-material#1.0.6",
+    "iron-form": "PolymerElements/iron-form#1.0.16",
+    "paper-toolbar": "PolymerElements/paper-toolbar#1.1.4",
+    "things-ajax": "ThingsElements/things-ajax",
+    "things-input-field": "ThingsElements/things-input-field",
     "sweetalert": "^1.1.3",
     "paper-toast": "^1.2.2"
   },
