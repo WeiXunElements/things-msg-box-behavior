@@ -78,7 +78,7 @@ Things.MsgBoxBehavior = {
   openPromptMsg: function(config, promptCallback) {
     swal(config, function(inputValue) {
       if(!inputValue) {
-        swal.showInputError('Empty value is not allowed!');
+        swal.showInputError(Things.DataGlobal.t('error.SHOULD_NOT_BE_EMPTY', { value : 'input' }));
         return false;
       }
 
@@ -96,11 +96,44 @@ Things.MsgBoxBehavior = {
       response = response.body;
     }
 
-    var htmlText = '<span>Code : ' + response.code + '<br/><br/><span>Status</span> : ' + response.status + '<br/><br/><p><span>Message</span> : ' + response.msg;
+    if(response.timestamp) {
+      this.openDefaultResponseError(response);
+    } else {
+      this.openElidomResponseError(response);
+    }
+  },
+
+  /**
+   * 스프링 프레임워크에서 던진 에러 처리
+   */
+  openDefaultResponseError: function(response) {
+    var htmlText = '<span>Status<span> : ' + response.status + '<br/><br/>' + 
+                   '<span>Path<span> : ' + response.path + '<br/><br/>' + 
+                   '<p><span>Message</span> : ' + response.message;
+
+    if(response.exception) {
+      htmlText += '<br/><br/><span>Exception</span> : ' + response.exception;
+    }
 
     this.openInfoMsg({
       type : 'error',
-      title : 'Error (' + response.error_id + ')',
+      title : response.error,
+      text : htmlText,
+      html : true
+    });
+  },
+
+  /**
+   * Elidom 프레임워크에서 던진 에러 처리
+   */
+  openElidomResponseError: function(response) {
+    var htmlText = '<span><a href="error_page?id=' + response.error_id + '" target="_blank">Error ID : ' + response.error_id + '</a>' +
+                   '<br/><br/><span>Status</span> : ' + response.status + 
+                   '<br/><br/><p><span>Message</span> : ' + response.msg;
+
+    this.openInfoMsg({
+      type : 'error',
+      title : 'Error Code (' + response.code + ')',
       text : htmlText,
       html : true
     });
@@ -113,9 +146,9 @@ Things.MsgBoxBehavior = {
    */
   openUnkownError: function(response) {
     this.openInfoMsg({ 
+      type : 'error',
       title : 'Error', 
-      text : 'Something went wrong, Please ask to administrator', 
-      type : 'error' 
+      text : Things.DataGlobal.t('error.SERVER-ERROR', { msg : '' })
     });
   },
 
