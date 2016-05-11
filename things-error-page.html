@@ -5,7 +5,6 @@
 <link rel="import" href="../paper-toolbar/paper-toolbar.html">
 
 <link rel="import" href="../things-ajax/things-ajax.html">
-<link rel="import" href="../things-input-field/things-input-field.html">
 
 <!--
   에러 발생시 상세 정보를 표시해주는 페이지 
@@ -18,26 +17,9 @@
 	<template>
 
 		<style>
-		:host {
-			display: block;
-		}
-
-		paper-toolbar{
-			background-color:var(--things-primary-background-color);
-			height:45px;
-		}
-
-		paper-toolbar::shadow #topBar {
-			height:45px;
-		}
-
-		paper-toolbar::shadow .title {
-			margin-left:32px !important;
-		}
-
-		form {
-			@apply(--things-default-padding)
-		}
+			:host {
+				display: block;
+			}
 		</style>
 
 		<things-ajax 
@@ -50,30 +32,18 @@
 		</things-ajax>
 
 		<paper-material elevation="1" class="flex">
-			<paper-toolbar>
-				<span class="title">Error : [[resource.id]]</span>
-			</paper-toolbar>
-
 			<div class="layout vertical flex">
 				<form is="iron-form" id="resource-form">
-					<div class="layout vertical flex">
-						<paper-textarea name="message" label="Message" value="{{resource.message}}"></paper-textarea>
-					</div>				
-					<div class="layout horizontal flex">
-						<things-input-field name="issue_date" label="Occured Time" value="{{resource.issue_date}}"></things-input-field>
-						<things-input-field name="code" label="Code" value="{{resource.code}}"></things-input-field>
-						<things-input-field name="status" label="Status" value="{{resource.status}}"></things-input-field>
-					</div>
-					<div class="layout horizontal flex">
-						<things-input-field name="uri" label="URL" value="{{resource.uri}}"></things-input-field>
-						<things-input-field name="method" label="Method" value="{{resource.method}}"></things-input-field>
-						<things-input-field name="error_type" label="Error Type" value="{{resource.error_type}}"></things-input-field>
-					</div>
-					<div class="layout vertical flex">
-						<paper-textarea label="Header" value="{{resource.header}}" rows=4></paper-textarea>
-						<paper-textarea label="Parameters" value="{{resource.params}}" rows=4></paper-textarea>
-						<paper-textarea label="Stack Trace" value="{{resource.stack_trace}}" rows=4></paper-textarea>
-					</div>
+					<paper-textarea name="message" label="Message" value="{{resource.message}}"></paper-textarea>
+					<paper-input name="issue_date" label="Occurred Time" value="{{resource.issue_date}}"></paper-input>
+					<paper-input name="code" label="Code" value="{{resource.code}}"></paper-input>
+					<paper-input name="status" label="Status" value="{{resource.status}}"></paper-input>
+					<paper-input name="error_type" label="Error Type" value="{{resource.error_type}}"></paper-input>
+					<paper-input name="uri" label="URL" value="{{resource.uri}}"></paper-input>
+					<paper-input name="method" label="Method" value="{{resource.method}}"></paper-input>
+					<paper-textarea label="Header" value="{{resource.header}}" rows=4></paper-textarea>
+					<paper-textarea label="Parameters" value="{{resource.params}}" rows=4></paper-textarea>
+					<paper-textarea label="Stack Trace" value="{{resource.stack_trace}}" rows=4></paper-textarea>
 				</form>
 			</div>
 		</paper-material>
@@ -86,6 +56,10 @@
 			is: 'things-error-page',
 
 			properties: {
+				title: {
+					type: String,
+					computed: '_computeTitle(errorId)'
+				},
 
 				errorId: {
 					type: String
@@ -99,6 +73,10 @@
 				resource: {
 					type: Object
 				}
+			},
+
+			_computeTitle: function(errorId) {
+				return 'Error : ' + errorId;
 			},
 
 			_computeResourceUrl: function(errorId) {
