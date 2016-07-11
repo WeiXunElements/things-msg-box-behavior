@@ -94,6 +94,10 @@ Things.MsgBoxBehaviorImpl = {
    * @param {Object} response Ajax 호출 후 Error Response
    */
   openResponseError: function(response) {
+    if (!response) {
+      return;
+    }
+
     if(response.body) {
       response = response.body;
     }
