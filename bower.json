@@ -25,7 +25,7 @@
     "paper-toolbar": "PolymerElements/paper-toolbar#1.1.4",
     "things-ajax": "ThingsElements/things-ajax",
     "things-input-field": "ThingsElements/things-input-field",
-    "things-input-field": "ThingsElements/things-view-open-behavior",
+    "things-view-open-behavior": "ThingsElements/things-view-open-behavior",
     "sweetalert": "^1.1.3",
     "paper-toast": "^1.2.2"
   },
