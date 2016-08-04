@@ -1,6 +1,6 @@
 {
   "name": "things-msg-box-behavior",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "authors": [
     "Hatio Lab. <heartyoh@hatiolab.com>"
   ],
@@ -25,6 +25,7 @@
     "paper-toolbar": "PolymerElements/paper-toolbar#1.1.4",
     "things-ajax": "ThingsElements/things-ajax",
     "things-input-field": "ThingsElements/things-input-field",
+    "things-input-field": "ThingsElements/things-view-open-behavior",
     "sweetalert": "^1.1.3",
     "paper-toast": "^1.2.2"
   },
