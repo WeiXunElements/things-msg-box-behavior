@@ -162,8 +162,7 @@ Things.MsgBoxBehaviorImpl = {
    * @param {Object} response
    */
   showToastMsg: function(msg) {
-    var eventDetail = {'msg':msg};
-    var event = new CustomEvent('things-show-tost', { 'detail': eventDetail });
+    var event = new CustomEvent('things-show-toast', { 'detail': { msg : msg } });
     document.dispatchEvent(event);
   }
 };
