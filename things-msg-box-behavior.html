@@ -151,7 +151,7 @@ Things.MsgBoxBehaviorImpl = {
   openUnkownError: function(response) {
     this.openInfoMsg({ 
       type : 'error',
-      title : 'Error', 
+      title : Things.DataGlobal.t('label.error'),
       text : Things.DataGlobal.t('error.SERVER-ERROR', { msg : '' })
     });
   },
