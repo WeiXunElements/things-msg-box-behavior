@@ -134,9 +134,25 @@ Things.MsgBoxBehaviorImpl = {
    */
   openElidomResponseError: function(response) {
     if(response.error_id) {
-      var errorPage = document.createElement('things-error-page');
-      errorPage.errorId = response.error_id;
-      this.openPopupView(errorPage, true);
+      var me = this;
+      swal({
+        title: response.code,
+        text: response.msg,
+        type: 'error',
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: Things.DataGlobal.t('button.detail'),
+        cancelButtonText: Things.DataGlobal.t('button.close'),
+        closeOnConfirm: true,
+        closeOnCancel: true
+
+      }, function(isConfirm) {
+        if (isConfirm) {
+          var errorPage = document.createElement('things-error-page');
+          errorPage.errorId = response.error_id;
+          me.openPopupView(errorPage, true);
+        }
+      });
 
     } else {
       this.openUnkownError(response);
@@ -151,8 +167,8 @@ Things.MsgBoxBehaviorImpl = {
   openUnkownError: function(response) {
     this.openInfoMsg({ 
       type : 'error',
-      title : Things.DataGlobal.t('label.error'),
-      text : Things.DataGlobal.t('error.SERVER-ERROR', { msg : '' })
+      title : Things.DataGlobal.t('label.error'), 
+      text : Things.DataGlobal.t('error.SERVER-ERROR', { msg : response.msg })
     });
   },
 

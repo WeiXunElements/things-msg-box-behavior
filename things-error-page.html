@@ -34,15 +34,15 @@
 		<paper-material elevation="1" class="flex">
 			<div class="layout vertical flex">
 				<form is="iron-form" id="resource-form">
-					<paper-textarea name="message" label="Message" value="{{resource.message}}"></paper-textarea>
+					<paper-input name="status" label="Status" value="{{resource.status}}"></paper-input>
 					<paper-input name="issue_date" label="Occurred Time" value="{{resource.issue_date}}"></paper-input>
 					<paper-input name="code" label="Code" value="{{resource.code}}"></paper-input>
-					<paper-input name="status" label="Status" value="{{resource.status}}"></paper-input>
+					<paper-textarea name="message" label="Message" value="{{resource.message}}"></paper-textarea>
 					<paper-input name="error_type" label="Error Type" value="{{resource.error_type}}"></paper-input>
 					<paper-input name="uri" label="URL" value="{{resource.uri}}"></paper-input>
 					<paper-input name="method" label="Method" value="{{resource.method}}"></paper-input>
-					<paper-textarea label="Header" value="{{resource.header}}" rows=4></paper-textarea>
-					<paper-textarea label="Parameters" value="{{resource.params}}" rows=4></paper-textarea>
+					<!--paper-textarea label="Header" value="{{resource.header}}" rows=4></paper-textarea>
+					<paper-textarea label="Parameters" value="{{resource.params}}" rows=4></paper-textarea-->
 					<paper-textarea label="Stack Trace" value="{{resource.stack_trace}}" rows=4></paper-textarea>
 				</form>
 			</div>
