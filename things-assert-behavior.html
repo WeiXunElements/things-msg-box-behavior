@@ -1,0 +1,171 @@
+<link rel="import" href="./things-msg-box-behavior.html">
+
+<script>
+
+window.Things = window.Things || {};
+
+/**
+ * Validation 에러를 표시하는 Behavior 
+ *
+ * @polymerBehavior Things.AssertBehavior
+ */
+Things.AssertBehaviorImpl = {
+  /**
+   * Terminology key를 리턴 
+   */
+  checkTermKey: function(text) {
+    return text.indexOf('.') >= 0 ? text : 'label.' + text;
+  },
+
+  /**
+   * validation error 발생시 에러 메시지를 표시한다.
+   * 
+   * @param msg 
+   */
+  throwValidationError: function(msg) {
+    var config = { title : Things.DataGlobal.t('error.VALIDATION_ERROR'), text : msg, type : 'error', timer : 10000 };
+    this.openInfoMsg(config);
+    throw { config };
+  },
+
+  /**
+   * actual이 빈 값이면 OK 빈 값이 아니면 에러 
+   * 
+   * @param actual 
+   * @param label
+   */
+  assertEmpty: function(actual, label) {
+    if(typeof actual != 'undefined' && actual) {
+      this.throwValidationError(Things.DataGlobal.t('error.SHOULD_NOT_BE_EMPTY', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+    }
+  },
+
+  /**
+   * actual이 빈 값이 아니면 OK 그렇지 않으면 에러
+   * 
+   * @param actual 
+   * @param label
+   */
+  assertNotEmpty: function(actual, label) {
+    if((typeof actual == 'undefined') || !actual) {
+      this.throwValidationError(Things.DataGlobal.t('error.SHOULD_BE_EMPTY', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+    }
+  },
+
+  /**
+   * actual이 Number 값이면 OK 그렇지 않으면 에러
+   * 
+   * @param actual 
+   * @param label
+   */
+  assertNumber: function(actual, label) {
+    if((typeof actual == 'undefined') || actual == null || isNaN(actual)) {
+      this.throwValidationError(Things.DataGlobal.t('error.NOT_A_NUMBER', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+    }
+  },
+
+  /**
+   * actual이 0이 아니면 OK 0이면 에러
+   * 
+   * @param actual 
+   * @param label
+   */
+  assertNotZero: function(actual, label) {
+    this.assertNumber(actual, label);
+
+    if(actual == 0) {
+      this.throwValidationError(Things.DataGlobal.t('error.VALUE_IS_ZERO', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+    }
+  },
+
+  /**
+   * actual이 0이면 OK 아니면 에러
+   * 
+   * @param actual 
+   * @param label
+   */
+  assertZero: function(actual, label) {
+    this.assertNumber(actual, label);
+
+    if(actual != 0) {
+      this.throwValidationError(Things.DataGlobal.t('error.VALUE_IS_NOT_ZERO', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+    }
+  },
+
+  /**
+   * actual이 0보다 크면 OK 아니면 에러
+   * 
+   * @param actual 
+   * @param label
+   * @param equal
+   */
+  assertGreaterThanZero: function(actual, label, equal) {
+    this.assertNumber(actual, label);
+
+    if(equal && actual <= 0 || !equal && actual < 0) {
+      this.throwValidationError(Things.DataGlobal.t('error.VALUE_IS_LESS_THAN_ZERO', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+    }
+  },
+
+  /**
+   * actual이 0보다 작으면 OK 아니면 에러
+   * 
+   * @param actual 
+   * @param label
+   * @param equal
+   */
+  assertLessThanZero: function(actual, label, equal) {
+    this.assertNumber(actual, label);
+
+    if(equal && actual >= 0 || !equal && actual > 0) {
+      this.throwValidationError(Things.DataGlobal.t('error.VALUE_IS_GREATER_THAN_ZERO', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+    }
+  },
+
+  /**
+   * a가 b보다 크다면 OK 그렇지 않으면 에러 
+   * 
+   * @param a 
+   * @param b
+   * @param label1
+   * @param label2
+   * @param equal
+   */
+  assertAGreaterThanB: function(a, b, label1, label2, equal) {
+    this.assertNumber(a, label1);
+    this.assertNumber(b, label2);
+
+    if((equal && (a <= b)) || (!equal && (a < b))) {
+      this.throwValidationError(Things.DataGlobal.t('error.A_IS_LESS_THAN_B', { 
+        a : Things.DataGlobal.t(this.checkTermKey(label1)), b : Things.DataGlobal.t(this.checkTermKey(label2)) 
+      }));
+    }
+  },
+
+  /**
+   * a가 b보다 작다면 OK 그렇지 않으면 에러 
+   * 
+   * @param a 
+   * @param b
+   * @param label1
+   * @param label2
+   * @param equal
+   */
+  assertALessThanB: function(a, b, label1, label2, equal) {
+    this.assertNumber(a, label1);
+    this.assertNumber(b, label2);
+
+    if((equal && (a >= b)) || (!equal && (a > b))) {
+      this.throwValidationError(Things.DataGlobal.t('error.A_IS_GREATER_THAN_B', { 
+        a : Things.DataGlobal.t(this.checkTermKey(label1)), b : Things.DataGlobal.t(this.checkTermKey(label2)) 
+      }));
+    }
+  }
+};
+
+Things.AssertBehavior = [
+  Things.AssertBehaviorImpl,
+  Things.MsgBoxBehavior
+];
+
+</script>

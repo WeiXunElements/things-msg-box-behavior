@@ -1,8 +1,9 @@
 <script src="../sweetalert/dist/sweetalert-dev.js"></script>
-
 <link rel="stylesheet" href="sweetalert.css">
+
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../things-view-open-behavior/things-view-open-behavior.html">
+
 <link rel="import" href="./things-error-page.html">
 
 <script>
@@ -94,13 +95,9 @@ Things.MsgBoxBehaviorImpl = {
    * @param {Object} response Ajax 호출 후 Error Response
    */
   openResponseError: function(response) {
-    if (!response) {
-      return;
-    }
+    if (!response) return;
 
-    if(response.body) {
-      response = response.body;
-    }
+    if(response.body) response = response.body;
 
     if(response.timestamp) {
       this.openDefaultResponseError(response);
