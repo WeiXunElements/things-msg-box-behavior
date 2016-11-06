@@ -132,8 +132,8 @@ Things.MsgBoxBehaviorImpl = {
   openElidomResponseError: function(response) {
     if(response.error_id) {
       var htmlText = '<br/><span>' + response.msg + '</span><br/><br/>';
-      if(response.detail) {
-        htmlText += '<span>' + response.detail + '</span><br/><br/>';
+      if(response.detail && response.detail != response.msg) {
+        htmlText += '<span>' + response.detail + '</span><br/><br/>';  
       }
       
       var me = this;
