@@ -16,7 +16,7 @@
 -->
 <dom-module id="things-error-page">
 	<template>
-		<style>
+		<!--style>
 			:host {
 				display: block;
 			}
@@ -41,13 +41,63 @@
 					<paper-input name="error_type" label="Error Type" value="{{resource.error_type}}"></paper-input>
 					<paper-input name="uri" label="URL" value="{{resource.uri}}"></paper-input>
 					<paper-input name="method" label="Method" value="{{resource.method}}"></paper-input>
-					<!--paper-textarea label="Header" value="{{resource.header}}" rows=4></paper-textarea>
-					<paper-textarea label="Parameters" value="{{resource.params}}" rows=4></paper-textarea-->
 					<paper-textarea label="Stack Trace" value="{{resource.stack_trace}}" rows=4></paper-textarea>
 				</form>
 			</div>
-		</paper-material>
+		</paper-material-->
 
+		<style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+		<style>
+			:host {
+				display: block;
+				box-sizing: border-box;
+				@apply(--things-default-padding);
+				@apply(--layout-vertical);
+				@apply(--layout-flex);
+			}
+			form {
+				@apply(--layout-flex);
+			}
+			paper-toolbar {
+				background-color:var(--things-white-background-color);
+				height: 50px;
+				@apply(--things-tight-padding);
+			}
+			paper-toolbar::shadow #bottomBar {
+				height: 50px;
+				@apply(--layout-horizontal);
+				@apply(--layout-end-justified);
+				padding: 0 10px;
+			}
+		</style>
+
+		<things-ajax 
+			auto
+			id="resource"
+			method="GET"
+			resource-url="[[resourceUrl]]"
+			resource-id="[[errorId]]"
+			last-response="{{resource}}">
+		</things-ajax>
+
+		<form is="iron-form" id="error-form">
+			<div id="fields" class="layout vertical flex">
+				<things-input-field name="issue_date" label="Issued Date" value="[[resource.issue_date]]"></things-input-field>
+				<things-input-field name="status" label="Status" value="[[resource.status]]"></things-input-field>
+				<things-input-field name="uri" label="URI" value="[[resource.uri]]"></things-input-field>
+				<things-input-field name="method" label="Method" value="[[resource.method]]"></things-input-field>
+				<things-input-field name="message" label="Message" value="[[resource.message]]"></things-input-field>
+			</div>
+			<div id="fields" class="layout vertical flex">
+				<things-textarea name="stack_trace" label="Detail" rows="20" value="[[resource.stack_trace]]"></things-textarea>
+			</div>
+		</form>
+
+		<!--paper-toolbar id="toolbar" justify='end'>
+			<div class="bottom">
+				<things-button-bar id="button-group" buttons="[[buttons]]"></things-button-bar>
+			</div>
+		</paper-toolbar-->
 	</template>
 
 	<script>
@@ -56,29 +106,60 @@
 			is: 'things-error-page',
 
 			properties: {
+				/**
+				 * 에러 페이지 타이틀 
+				 */
 				title: {
-					type: String,
-					computed: '_computeTitle(errorId)'
+					type: String
 				},
 
+				/**
+				 * 에러 아이디
+				 */
 				errorId: {
 					type: String
 				},
 
+				/**
+				 * 에러 아이디로 에러를 조회할 URL
+				 */
 				resourceUrl: {
 					type: String,
 					computed: '_computeResourceUrl(errorId)'
 				},				
 
+				/**
+				 * 에러 아이디로 조회한 에러 정보
+				 */
 				resource: {
-					type: Object
-				}
+					type: Object,
+					observer: '_resourceChanged'
+				},
+
+				/**
+				 * 버튼 
+				 */
+				/*buttons: {
+					type: Array,
+					value: [{ id: 'send-mail-btn', text: 'send-mail' }]
+				}*/
 			},
 
-			_computeTitle: function(errorId) {
-				return 'Error : ' + errorId;
+			closeDialog: function() {
+    		var event = new CustomEvent('things-close-popup-view', { detail : this });
+    		document.dispatchEvent(event);
 			},
 
+			/**
+			 * 에러 정보가 변경한 이 후 
+			 */
+			_resourceChanged: function(resource) {
+				this.title = resource.error_type;
+			},
+
+			/**
+			 * 에러 아이디로 에러 조회 URL 설정 
+			 */
 			_computeResourceUrl: function(errorId) {
 				return 'error_logs/' + errorId;
 			}

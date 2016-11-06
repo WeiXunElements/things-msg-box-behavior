@@ -131,10 +131,16 @@ Things.MsgBoxBehaviorImpl = {
    */
   openElidomResponseError: function(response) {
     if(response.error_id) {
+      var htmlText = '<br/><span>' + response.msg + '</span><br/><br/>';
+      if(response.detail) {
+        htmlText += '<span>' + response.detail + '</span><br/><br/>';
+      }
+      
       var me = this;
       swal({
         title: response.code,
-        text: response.msg,
+        text: htmlText,
+        html: true,
         type: 'error',
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
