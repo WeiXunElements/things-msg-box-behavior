@@ -20,9 +20,9 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
     "paper-input": "PolymerElements/paper-input#^1.1.11",
-    "paper-material": "PolymerElements/paper-material#1.0.6",
-    "iron-form": "PolymerElements/iron-form#1.0.16",
-    "paper-toolbar": "PolymerElements/paper-toolbar#1.1.4",
+    "paper-material": "PolymerElements/paper-material#^1.0.6",
+    "iron-form": "PolymerElements/iron-form#^1.0.16",
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.1.4",
     "things-ajax": "ThingsElements/things-ajax",
     "things-input-field": "ThingsElements/things-input-field",
     "things-view-open-behavior": "ThingsElements/things-view-open-behavior",
