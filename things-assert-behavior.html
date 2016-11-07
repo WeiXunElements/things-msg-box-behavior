@@ -36,7 +36,7 @@ Things.AssertBehaviorImpl = {
    */
   assertEmpty: function(actual, label) {
     if(typeof actual != 'undefined' && actual) {
-      this.throwValidationError(Things.DataGlobal.t('error.SHOULD_NOT_BE_EMPTY', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+      this.throwValidationError(Things.DataGlobal.t('error.SHOULD_BE_EMPTY', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
     }
   },
 
@@ -48,7 +48,7 @@ Things.AssertBehaviorImpl = {
    */
   assertNotEmpty: function(actual, label) {
     if((typeof actual == 'undefined') || !actual) {
-      this.throwValidationError(Things.DataGlobal.t('error.SHOULD_BE_EMPTY', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+      this.throwValidationError(Things.DataGlobal.t('error.SHOULD_NOT_BE_EMPTY', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
     }
   },
 
