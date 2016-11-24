@@ -102,7 +102,7 @@ Things.AssertBehaviorImpl = {
   assertGreaterThanZero: function(actual, label, equal) {
     this.assertNumber(actual, label);
 
-    if(equal && actual <= 0 || !equal && actual < 0) {
+    if(equal && actual < 0 || !equal && actual <= 0) {
       this.throwValidationError(Things.DataGlobal.t('error.VALUE_IS_LESS_THAN_ZERO', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
     }
   },
@@ -117,7 +117,7 @@ Things.AssertBehaviorImpl = {
   assertLessThanZero: function(actual, label, equal) {
     this.assertNumber(actual, label);
 
-    if(equal && actual >= 0 || !equal && actual > 0) {
+    if(equal && actual > 0 || !equal && actual >= 0) {
       this.throwValidationError(Things.DataGlobal.t('error.VALUE_IS_GREATER_THAN_ZERO', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
     }
   },
@@ -135,7 +135,7 @@ Things.AssertBehaviorImpl = {
     this.assertNumber(a, label1);
     this.assertNumber(b, label2);
 
-    if((equal && (a <= b)) || (!equal && (a < b))) {
+    if((equal && (a < b)) || (!equal && (a <= b))) {
       this.throwValidationError(Things.DataGlobal.t('error.A_IS_LESS_THAN_B', { 
         a : Things.DataGlobal.t(this.checkTermKey(label1)), b : Things.DataGlobal.t(this.checkTermKey(label2)) 
       }));
@@ -155,7 +155,7 @@ Things.AssertBehaviorImpl = {
     this.assertNumber(a, label1);
     this.assertNumber(b, label2);
 
-    if((equal && (a >= b)) || (!equal && (a > b))) {
+    if((equal && (a > b)) || (!equal && (a >= b))) {
       this.throwValidationError(Things.DataGlobal.t('error.A_IS_GREATER_THAN_B', { 
         a : Things.DataGlobal.t(this.checkTermKey(label1)), b : Things.DataGlobal.t(this.checkTermKey(label2)) 
       }));
