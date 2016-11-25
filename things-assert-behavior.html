@@ -35,7 +35,7 @@ Things.AssertBehaviorImpl = {
    * @param label
    */
   assertEmpty: function(actual, label) {
-    if(typeof actual != 'undefined' && actual) {
+    if(typeof actual != 'undefined' && actual && actual != '') {
       this.throwValidationError(Things.DataGlobal.t('error.SHOULD_BE_EMPTY', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
     }
   },
@@ -47,8 +47,40 @@ Things.AssertBehaviorImpl = {
    * @param label
    */
   assertNotEmpty: function(actual, label) {
-    if((typeof actual == 'undefined') || !actual) {
+    if((typeof actual == 'undefined') || !actual || actual == '') {
       this.throwValidationError(Things.DataGlobal.t('error.SHOULD_NOT_BE_EMPTY', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+    }
+  },
+
+  /**
+   * a와 b가 같은지 체크 다르면 에러 
+   * 
+   * @param a 
+   * @param b
+   * @param labelA 
+   * @param labelB
+   */
+  assertEqual: function(a, b, labelA, labelB) {
+    if((typeof a == 'undefined' && typeof b != 'undefined') || (typeof a != 'undefined' && typeof b == 'undefined') || (a != b)) {
+      this.throwValidationError(Things.DataGlobal.t('error.A_SHOULD_BE_EQUAL_B', { 
+        a : Things.DataGlobal.t(this.checkTermKey(labelA)), b : Things.DataGlobal.t(this.checkTermKey(labelB)) 
+      }));
+    }
+  },
+
+  /**
+   * a와 b가 다른지 체크 같으면 에러 
+   * 
+   * @param a 
+   * @param b
+   * @param labelA 
+   * @param labelB
+   */
+  assertNotEqual: function(a, b, labelA, labelB) {
+    if((typeof a == 'undefined' && typeof b == 'undefined') || (a == null && b == null) || (a == b)) {
+      this.throwValidationError(Things.DataGlobal.t('error.A_SHOULD_NOT_BE_EQUAL_B', { 
+        a : Things.DataGlobal.t(this.checkTermKey(labelA)), b : Things.DataGlobal.t(this.checkTermKey(labelB)) 
+      }));
     }
   },
 
@@ -59,7 +91,9 @@ Things.AssertBehaviorImpl = {
    * @param label
    */
   assertNumber: function(actual, label) {
-    if((typeof actual == 'undefined') || actual == null || isNaN(actual)) {
+    this.assertNotEmpty(actual, label);
+
+    if(isNaN(actual)) {
       this.throwValidationError(Things.DataGlobal.t('error.NOT_A_NUMBER', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
     }
   },
