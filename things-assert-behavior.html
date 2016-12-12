@@ -152,7 +152,7 @@ Things.AssertBehaviorImpl = {
     this.assertNumber(actual, label);
 
     if(equal && actual > 0 || !equal && actual >= 0) {
-      this.throwValidationError(Things.DataGlobal.t('error.VALUE_IS_GREATER_THAN_ZERO', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
+      this.throwValidationError(Things.DataGlobal.t('error.VALUE_IS_LESS_OR_EQUAL_THAN_ZERO', { value : Things.DataGlobal.t(this.checkTermKey(label)) }));
     }
   },
 
