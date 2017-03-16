@@ -9,14 +9,70 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>things-msg-box-behavior Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../things-msg-box-behavior.html">
-  </head>
-  <body unresolved>
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../../paper-toast/paper-toast.html">
+</head>
 
-  </body>
+<body unresolved>
+    <demo-snippet class="centered-demo">
+        <template>
+            <template is="dom-bind">
+                <demo-msg-box></demo-msg-box>
+                <dom-module id="demo-msg-box">
+                    <template>
+                        <style>
+                             :host {
+                                display: block;
+                            }
+
+                        </style>
+
+                        <paper-button raised on-tap="onOpenInfoMsg">Open Info Msg</paper-button>
+
+                        <paper-button raised on-tap="showToastMsg">Toast Msg</paper-button>
+                        <paper-toast id="toast" text="Your draft has been discarded."></paper-toast>
+
+
+                    </template>
+                    <script>
+                        Polymer({
+                            is: 'demo-msg-box',
+                            behaviors: [
+                                Things.MsgBoxBehavior
+                            ],
+                            // listeners: {
+                            //     'things-show-toast': 'toast.open'
+                            // },
+                            ready: function() {
+                                document.addEventListener('things-show-toast', this.openToast.bind(this))
+                            },
+                            onOpenInfoMsg: function() {
+                                var config = {
+                                    type: 'warning', // info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
+                                    title: 'warning',
+                                    text: 'open information massagebox'
+                                }
+                                this.openInfoMsg(config)
+                            },
+                            openToast: function() {
+                                this.$.toast.open();
+                            }
+                        });
+
+                    </script>
+                </dom-module>
+            </template>
+        </template>
+    </demo-snippet>
+</body>
+
 </html>
