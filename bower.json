@@ -27,7 +27,8 @@
     "things-input-field": "ThingsElements/things-input-field",
     "things-view-open-behavior": "ThingsElements/things-view-open-behavior",
     "things-libraries": "ThingsElements/things-libraries#^0.1.2",
-    "paper-toast": "^1.2.2"
+    "paper-toast": "^1.2.2",
+    "things-i18n-msg": "ThingsElements/things-i18n-msg#^0.1.25"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

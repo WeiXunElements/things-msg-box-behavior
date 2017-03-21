@@ -5,40 +5,67 @@
 <link rel="import" href="../things-view-open-behavior/things-view-open-behavior.html">
 
 <link rel="import" href="./things-error-page.html">
+<link rel="import" href="./things-error-page.html">
+<link rel="import" href="../things-i18n-msg/things-i18n-msg.html">
+<link rel="import" href="../things-global-behavior/things-global-behavior.html">
 
 <script>
     window.Things = window.Things || {};
 
     /**
-     * 메시지 박스를 표시하는 Behavior
-     * 메시지 박스는 크게 information, confirmation, prompt 형으로 구분된다.
+     * ### 메시지 박스를 표시하는 Behavior
+     *
+     * 메시지 박스는 크게 `information`, `confirmation`, `prompt` 형으로 구분된다.
+     *
      * information은 단순히 메시지를 표시하는 형식이고 confirmation은 사용자에게 확인을 받는 형식, 그리고 Prompt는 사용자에게 값을 받아오는 형식이다.
      * 각 메시지 박스 타입의 Function은 information - openInfoMsg, confirmation - openConfirmMsg, prompt - openPromptMsg로 구성된다.
      * confirmation과 prompt 타입은 사용자 응답이 'OK' 성일 경우 Callback 함수를 넘길 수 있다. (API 참조)
      * 각 Function은 config로 메시지 박스를 구성하는데 configuration 요소는 다음과 같다.
      *
-     * config
+     * ### config
+     *
      * 1) type : 메시지 박스의 아이콘 - info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
+     *
      * 2) title : 메시지 박스의 타이틀
+     *
      * 3) text : 메시지 박스의 본문 메시지
+     *
      * 4) html : 메시지 박스의 본문을 Html 형식으로 구성할 지 여부, 기본값은 false이고 값이 true일 경우 text 값은 html로 구성되어야 한다.
+     *
      * 5) allowOutsideClick: 메시지 박스 창이 modal인 지 여부, 기본값은 false
+     *
      * 6) showConfirmButton: Confirm 버튼을 표시할 지 여부. 기본값은 true
+     *
      * 7) showCancelButton: Cancel 버튼을 표시할 지 여부, false
+     *
      * 8) closeOnConfirm: Confirm 버튼 클릭시 메시지 박스 창이 close될 지 여부, 기본값은 true
+     *
      * 9) closeOnCancel: Cancel 버튼을 클릭시 메시지 박스 창이 close될 지 여부, 기본값은 true
+     *
      * 10) confirmButtonText: Confirm 버튼의 텍스트 값, 기본값은 'OK'
+     *
      * 11) confirmButtonColor: Confirm 버튼의 색깔, 기본값은 '#8CD4F5'
+     *
      * 12) cancelButtonText: Cancel 버튼의 텍스트 값, 기본값은'Cancel'
+     *
      * 13) imageUrl: 삽입하고자 하는 이미지 URL, 기본값은 null
+     *
      * 14) imageSize: 삽입하고자 하는 이미지의 사이즈, 기본값은 null
+     *
      * 15) timer: 얼마 후에 자동으로 메시지 창이 close될 지 여부, (ex: 3초 후에 자동으로 닫혀야 한다면 3000, null이면 사용자 반응에 창이 닫힘), null,
+     *
      * 16) customClass: 커스터마이징 스타일을 구성할 경우 설정, 가본값은 ''
+     *
      * 17) animation: 창이 열리고 닫힐 때 애니메이션 효과 여부, 기본값은 true
+     *
      * 18) allowEscapeKey: esc키를 누를 때 창이 close될 지 여부, 기본값은 true
+     *
      * 19) inputType: type이 input이나 prompt일 경우 사용자에게 입력받을 Input 값의 타입, 기본값은 'text'
+     *
      * 20) inputPlaceholder: type이 input이나 prompt일 경우 사용자에게 입력받을 Input의 Placeholder, 기본값은 ''
+     *
      * 21) inputValue: type이 input이나 prompt일 경우 사용자에게 입력받은 Input 값
+     *
      * 22) showLoaderOnConfirm: 값이 true이면 Cancel과 Confirm 버튼을 비활성화한다. 기본값은 false
      *
      * @polymerBehavior Things.MsgBoxBehavior
@@ -47,16 +74,16 @@
     Things.MsgBoxBehaviorImpl = {
 
         /**
-         * Open Information Message Box
+         * Info 메시지 Box를 Open한다.
          *
-         * @param {Object} config
+         * @param {Object} config MessageBox 구성을 위한 Configuration
          */
         openInfoMsg: function(config) {
             swal(config);
         },
 
         /**
-         * Open Confirmation Message Box
+         * Confirmation 메시지Box 를 Open한다.확인혹은 취소 버튼을 추가할수 있다.
          *
          * @param {Object} config MessageBox 구성을 위한 Configuration
          * @param {Function} okCallback OK 버튼 클릭시 콜백 함수
@@ -73,10 +100,10 @@
         },
 
         /**
-         * Open Prompt Message Box
+         * Input타입으로 메시지Box에 text입력하여 확인 또는 취소한다.
          *
          * @param {Object} config MessageBox 구성을 위한 Configuration
-         * @param {Function} promptCallback
+         * @param {Function} promptCallback Input 메시지를 처리하기 위한 함수
          */
         openPromptMsg: function(config, promptCallback) {
             swal(config, function(inputValue) {
@@ -92,7 +119,7 @@
         },
 
         /**
-         * Show response error
+         * response error 를 메시지 Box에 Open
          *
          * @param {Object} response Ajax 호출 후 Error Response
          */
@@ -110,6 +137,7 @@
 
         /**
          * 스프링 프레임워크에서 던진 에러 처리
+         * @param {Object} response Elidom 프레임워크에서 던진 Error Response
          */
         openDefaultResponseError: function(response) {
             var htmlText = '<span>Status<span> : ' + response.status + '<br/><br/>' +
@@ -130,6 +158,7 @@
 
         /**
          * Elidom 프레임워크에서 던진 에러 처리
+         * @param {Object} response Elidom 프레임워크에서 던진 Error Response
          */
         openElidomResponseError: function(response) {
             if (response.error_id) {
@@ -165,7 +194,7 @@
         },
 
         /**
-         * Show unkown error
+         * unkown error를 출력
          *
          * @param {Object} response Ajax 호출 후 Error Response
          */
@@ -180,9 +209,9 @@
         },
 
         /**
-         * Show toast message
+         * toast message를 출력
          *
-         * @param {Object} response
+         * @param {Object} msg Ajax 호출 후 toase message Response
          */
         showToastMsg: function(msg) {
             var event = new CustomEvent('things-show-toast', {
