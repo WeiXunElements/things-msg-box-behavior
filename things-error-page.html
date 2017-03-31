@@ -8,11 +8,11 @@
 <!--link rel="import" href="../things-ajax/things-ajax.html"-->
 
 <!--
-  에러 발생시 상세 정보를 표시해주는 페이지 
+  에러 발생시 상세 정보를 표시해주는 페이지
 
   Example:
     <things-error-page error-id="5731ca1e0d86acf24ac4b544">
-    </things-error-page>  
+    </things-error-page>
 -->
 <dom-module id="things-error-page">
 	<template>
@@ -23,7 +23,7 @@
 			}
 		</style>
 
-		<!--things-ajax 
+		<!--things-ajax
 			auto
 			id="resource"
 			method="GET"
@@ -72,7 +72,7 @@
 			}
 		</style>
 
-		<things-ajax 
+		<things-ajax
 			auto
 			id="resource"
 			method="GET"
@@ -108,7 +108,9 @@
 
 			properties: {
 				/**
-				 * 에러 페이지 타이틀 
+				 * 에러 페이지 타이틀
+				 * ******
+				 * @type {String}
 				 */
 				title: {
 					type: String
@@ -116,6 +118,8 @@
 
 				/**
 				 * 에러 아이디
+				 * ******
+				 * @type {String}
 				 */
 				errorId: {
 					type: String
@@ -123,14 +127,18 @@
 
 				/**
 				 * 에러 아이디로 에러를 조회할 URL
+				 * ******
+				 * @type {String}
 				 */
 				resourceUrl: {
 					type: String,
 					computed: '_computeResourceUrl(errorId)'
-				},				
+				},
 
 				/**
 				 * 에러 아이디로 조회한 에러 정보
+				 * ******
+				 * @type {Object}
 				 */
 				resource: {
 					type: Object,
@@ -138,28 +146,31 @@
 				},
 
 				/**
-				 * 버튼 
+				 * 버튼
 				 */
 				/*buttons: {
 					type: Array,
 					value: [{ id: 'send-mail-btn', text: 'send-mail' }]
 				}*/
 			},
-
+			/**
+			 * closeDialog
+			 * *******
+			 */
 			closeDialog: function() {
     		var event = new CustomEvent('things-close-popup-view', { detail : this });
     		document.dispatchEvent(event);
 			},
 
 			/**
-			 * 에러 정보가 변경한 이 후 
+			 * 에러 정보가 변경한 이 후
 			 */
 			_resourceChanged: function(resource) {
 				this.title = resource.error_type;
 			},
 
 			/**
-			 * 에러 아이디로 에러 조회 URL 설정 
+			 * 에러 아이디로 에러 조회 URL 설정
 			 */
 			_computeResourceUrl: function(errorId) {
 				return 'error_logs/' + errorId;

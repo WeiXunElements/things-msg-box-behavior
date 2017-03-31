@@ -5,13 +5,14 @@
 window.Things = window.Things || {};
 
 /**
- * Validation 에러를 표시하는 Behavior 
+ * Validation 에러를 표시하는 Behavior
  *
  * @polymerBehavior Things.AssertBehavior
  */
 Things.AssertBehaviorImpl = {
   /**
-   * Terminology key를 리턴 
+   * Terminology key를 리턴
+   * *******
    */
   checkTermKey: function(text) {
     return text.indexOf('.') >= 0 ? text : 'label.' + text;
@@ -19,8 +20,8 @@ Things.AssertBehaviorImpl = {
 
   /**
    * validation error 발생시 에러 메시지를 표시한다.
-   * 
-   * @param msg 
+   * *******
+   * @param msg
    */
   throwValidationError: function(msg) {
     var config = { title : Things.DataGlobal.t('error.VALIDATION_ERROR'), text : msg, type : 'error', timer : 10000 };
@@ -29,9 +30,9 @@ Things.AssertBehaviorImpl = {
   },
 
   /**
-   * a와 b가 중복 체크 중복시 에러 
-   * 
-   * @param a 
+   * a와 b가 중복 체크 중복시 에러
+   * *******
+   * @param a
    * @param b
    * @param label
    */
@@ -45,9 +46,9 @@ Things.AssertBehaviorImpl = {
   },
 
   /**
-   * actual이 빈 값이면 OK 빈 값이 아니면 에러 
-   * 
-   * @param actual 
+   * actual이 빈 값이면 OK 빈 값이 아니면 에러
+   * *******
+   * @param actual
    * @param label
    */
   assertEmpty: function(actual, label) {
@@ -58,8 +59,8 @@ Things.AssertBehaviorImpl = {
 
   /**
    * actual이 빈 값이 아니면 OK 그렇지 않으면 에러
-   * 
-   * @param actual 
+   * *******
+   * @param actual
    * @param label
    */
   assertNotEmpty: function(actual, label) {
@@ -69,41 +70,41 @@ Things.AssertBehaviorImpl = {
   },
 
   /**
-   * a와 b가 같은지 체크 다르면 에러 
-   * 
-   * @param a 
+   * a와 b가 같은지 체크 다르면 에러
+   * *******
+   * @param a
    * @param b
-   * @param labelA 
+   * @param labelA
    * @param labelB
    */
   assertEqual: function(a, b, labelA, labelB) {
     if((typeof a == 'undefined' && typeof b != 'undefined') || (typeof a != 'undefined' && typeof b == 'undefined') || (a != b)) {
-      this.throwValidationError(Things.DataGlobal.t('error.A_SHOULD_BE_EQUAL_B', { 
-        a : Things.DataGlobal.t(this.checkTermKey(labelA)), b : Things.DataGlobal.t(this.checkTermKey(labelB)) 
+      this.throwValidationError(Things.DataGlobal.t('error.A_SHOULD_BE_EQUAL_B', {
+        a : Things.DataGlobal.t(this.checkTermKey(labelA)), b : Things.DataGlobal.t(this.checkTermKey(labelB))
       }));
     }
   },
 
   /**
-   * a와 b가 다른지 체크 같으면 에러 
-   * 
-   * @param a 
+   * a와 b가 다른지 체크 같으면 에러
+   * *******
+   * @param a
    * @param b
-   * @param labelA 
+   * @param labelA
    * @param labelB
    */
   assertNotEqual: function(a, b, labelA, labelB) {
     if((typeof a == 'undefined' && typeof b == 'undefined') || (a == null && b == null) || (a == b)) {
-      this.throwValidationError(Things.DataGlobal.t('error.A_SHOULD_NOT_BE_EQUAL_B', { 
-        a : Things.DataGlobal.t(this.checkTermKey(labelA)), b : Things.DataGlobal.t(this.checkTermKey(labelB)) 
+      this.throwValidationError(Things.DataGlobal.t('error.A_SHOULD_NOT_BE_EQUAL_B', {
+        a : Things.DataGlobal.t(this.checkTermKey(labelA)), b : Things.DataGlobal.t(this.checkTermKey(labelB))
       }));
     }
   },
 
   /**
    * actual이 Number 값이면 OK 그렇지 않으면 에러
-   * 
-   * @param actual 
+   * *******
+   * @param actual
    * @param label
    */
   assertNumber: function(actual, label) {
@@ -116,8 +117,8 @@ Things.AssertBehaviorImpl = {
 
   /**
    * actual이 0이 아니면 OK 0이면 에러
-   * 
-   * @param actual 
+   * *******
+   * @param actual
    * @param label
    */
   assertNotZero: function(actual, label) {
@@ -130,8 +131,8 @@ Things.AssertBehaviorImpl = {
 
   /**
    * actual이 0이면 OK 아니면 에러
-   * 
-   * @param actual 
+   * *******
+   * @param actual
    * @param label
    */
   assertZero: function(actual, label) {
@@ -144,8 +145,8 @@ Things.AssertBehaviorImpl = {
 
   /**
    * actual이 0보다 크면 OK 아니면 에러
-   * 
-   * @param actual 
+   * *******
+   * @param actual
    * @param label
    * @param equal
    */
@@ -159,8 +160,8 @@ Things.AssertBehaviorImpl = {
 
   /**
    * actual이 0보다 작으면 OK 아니면 에러
-   * 
-   * @param actual 
+   * *******
+   * @param actual
    * @param label
    * @param equal
    */
@@ -173,9 +174,9 @@ Things.AssertBehaviorImpl = {
   },
 
   /**
-   * a가 b보다 크다면 OK 그렇지 않으면 에러 
-   * 
-   * @param a 
+   * a가 b보다 크다면 OK 그렇지 않으면 에러
+   * *******
+   * @param a
    * @param b
    * @param label1
    * @param label2
@@ -186,16 +187,16 @@ Things.AssertBehaviorImpl = {
     this.assertNumber(b, label2);
 
     if((equal && (a < b)) || (!equal && (a <= b))) {
-      this.throwValidationError(Things.DataGlobal.t('error.A_IS_LESS_THAN_B', { 
-        a : Things.DataGlobal.t(this.checkTermKey(label1)), b : Things.DataGlobal.t(this.checkTermKey(label2)) 
+      this.throwValidationError(Things.DataGlobal.t('error.A_IS_LESS_THAN_B', {
+        a : Things.DataGlobal.t(this.checkTermKey(label1)), b : Things.DataGlobal.t(this.checkTermKey(label2))
       }));
     }
   },
 
   /**
-   * a가 b보다 작다면 OK 그렇지 않으면 에러 
-   * 
-   * @param a 
+   * a가 b보다 작다면 OK 그렇지 않으면 에러
+   * *******
+   * @param a
    * @param b
    * @param label1
    * @param label2
@@ -206,8 +207,8 @@ Things.AssertBehaviorImpl = {
     this.assertNumber(b, label2);
 
     if((equal && (a > b)) || (!equal && (a >= b))) {
-      this.throwValidationError(Things.DataGlobal.t('error.A_IS_GREATER_THAN_B', { 
-        a : Things.DataGlobal.t(this.checkTermKey(label1)), b : Things.DataGlobal.t(this.checkTermKey(label2)) 
+      this.throwValidationError(Things.DataGlobal.t('error.A_IS_GREATER_THAN_B', {
+        a : Things.DataGlobal.t(this.checkTermKey(label1)), b : Things.DataGlobal.t(this.checkTermKey(label2))
       }));
     }
   }

@@ -13,7 +13,7 @@
     window.Things = window.Things || {};
 
     /**
-     * ### 메시지 박스를 표시하는 Behavior
+     * ## things-msg-box-behavior: 메시지 박스를 표시하는 Behavior
      *
      * 메시지 박스는 크게 `information`, `confirmation`, `prompt` 형으로 구분된다.
      *
@@ -22,7 +22,7 @@
      * confirmation과 prompt 타입은 사용자 응답이 'OK' 성일 경우 Callback 함수를 넘길 수 있다. (API 참조)
      * 각 Function은 config로 메시지 박스를 구성하는데 configuration 요소는 다음과 같다.
      *
-     * ### config
+     * ## config:메시지를 구성하는 엔티티
      *
      * 1) type : 메시지 박스의 아이콘 - info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
      *
@@ -68,6 +68,9 @@
      *
      * 22) showLoaderOnConfirm: 값이 true이면 Cancel과 Confirm 버튼을 비활성화한다. 기본값은 false
      *
+     *
+     *
+     *
      * @polymerBehavior Things.MsgBoxBehavior
      * @demo demo/index.html
      */
@@ -75,8 +78,8 @@
 
         /**
          * Info 메시지 Box를 Open한다.
-         *
-         * @param {Object} config MessageBox 구성을 위한 Configuration
+         *********
+         * @param {Object} config #### :MessageBox 구성을 위한 Configuration
          */
         openInfoMsg: function(config) {
             swal(config);
@@ -84,10 +87,10 @@
 
         /**
          * Confirmation 메시지Box 를 Open한다.확인혹은 취소 버튼을 추가할수 있다.
-         *
-         * @param {Object} config MessageBox 구성을 위한 Configuration
-         * @param {Function} okCallback OK 버튼 클릭시 콜백 함수
-         * @param {Function} cancelCallback Cancel 버튼 클릭시 콜백 함수
+         *********
+         * @param {Object} config #### :MessageBox 구성을 위한 Configuration
+         * @param {Function} okCallback #### :OK 버튼 클릭시 콜백 함수
+         * @param {Function} cancelCallback #### :Cancel 버튼 클릭시 콜백 함수
          */
         openConfirmMsg: function(config, okCallback, cancelCallback) {
             swal(config, function(isConfirm) {
@@ -101,9 +104,9 @@
 
         /**
          * Input타입으로 메시지Box에 text입력하여 확인 또는 취소한다.
-         *
-         * @param {Object} config MessageBox 구성을 위한 Configuration
-         * @param {Function} promptCallback Input 메시지를 처리하기 위한 함수
+         *********
+         * @param {Object} config #### :MessageBox 구성을 위한 Configuration
+         * @param {Function} promptCallback #### :Input 메시지를 처리하기 위한 함수
          */
         openPromptMsg: function(config, promptCallback) {
             swal(config, function(inputValue) {
@@ -120,8 +123,8 @@
 
         /**
          * response error 를 메시지 Box에 Open
-         *
-         * @param {Object} response Ajax 호출 후 Error Response
+         *********
+         * @param {Object} response #### :Ajax 호출 후 Error Response
          */
         openResponseError: function(response) {
             if (!response) return;
@@ -137,7 +140,8 @@
 
         /**
          * 스프링 프레임워크에서 던진 에러 처리
-         * @param {Object} response Elidom 프레임워크에서 던진 Error Response
+         * @param {Object} response #### :Elidom 프레임워크에서 던진 Error Response
+         * ******
          */
         openDefaultResponseError: function(response) {
             var htmlText = '<span>Status<span> : ' + response.status + '<br/><br/>' +
@@ -158,7 +162,8 @@
 
         /**
          * Elidom 프레임워크에서 던진 에러 처리
-         * @param {Object} response Elidom 프레임워크에서 던진 Error Response
+         * *******
+         * @param {Object} response #### :Elidom 프레임워크에서 던진 Error Response
          */
         openElidomResponseError: function(response) {
             if (response.error_id) {
@@ -195,8 +200,8 @@
 
         /**
          * unkown error를 출력
-         *
-         * @param {Object} response Ajax 호출 후 Error Response
+         *******
+         * @param {Object} response #### :Ajax 호출 후 Error Response
          */
         openUnkownError: function(response) {
             this.openInfoMsg({
@@ -210,8 +215,8 @@
 
         /**
          * toast message를 출력
-         *
-         * @param {Object} msg Ajax 호출 후 toase message Response
+         *******
+         * @param {Object} msg #### :Ajax 호출 후 toase message Response
          */
         showToastMsg: function(msg) {
             var event = new CustomEvent('things-show-toast', {
