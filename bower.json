@@ -23,12 +23,12 @@
     "paper-material": "PolymerElements/paper-material#^1.0.6",
     "iron-form": "PolymerElements/iron-form#^1.0.16",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.1.4",
-    "things-ajax": "ThingsElements/things-ajax",
-    "things-input-field": "ThingsElements/things-input-field",
-    "things-view-open-behavior": "ThingsElements/things-view-open-behavior",
-    "things-libraries": "ThingsElements/things-libraries#^0.1.2",
+    "things-ajax": "ThingsElements/things-ajax#2.0.0",
+    "things-input-field": "ThingsElements/things-input-field#2.0.0",
+    "things-view-open-behavior": "ThingsElements/things-view-open-behavior#^2.0.0",
+    "things-libraries": "ThingsElements/things-libraries#^2.0.0",
     "paper-toast": "^1.2.2",
-    "things-i18n-msg": "ThingsElements/things-i18n-msg#^0.1.25"
+    "things-i18n-msg": "ThingsElements/things-i18n-msg#^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
