@@ -21,7 +21,7 @@
     "polymer": "Polymer/polymer#^2.0.0",
     "paper-input": "PolymerElements/paper-input#^2.0.0",
     "paper-material": "PolymerElements/paper-material#^2.0.0",
-    "iron-form": "PolymerElements/iron-form#^2.0.0",
+    "iron-form": "PolymerElements/iron-form#2.0-preview",
     "paper-toolbar": "PolymerElements/paper-toolbar#^2.0.0",
     "things-ajax": "ThingsElements/things-ajax#^2.0.0",
     "things-input-field": "ThingsElements/things-input-field#^2.0.0",
