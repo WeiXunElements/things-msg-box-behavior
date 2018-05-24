@@ -169,7 +169,7 @@ Copyright © HatioLab Inc. All rights reserved.
          * *******
          * @param {Object} response #### :Elidom 프레임워크에서 던진 Error Response
          */
-        openElidomResponseError: function(response) {
+        openElidomResponseError: function (response) {
             if (response.error_id) {
                 var htmlText = '<br/><span>' + response.msg + '</span><br/><br/>';
                 if (response.detail && response.detail != response.msg) {
@@ -184,13 +184,14 @@ Copyright © HatioLab Inc. All rights reserved.
                     type: 'error',
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: Things.DataGlobal.t('button.detail'),
-                    cancelButtonText: Things.DataGlobal.t('button.close'),
+                    confirmButtonText: Things.DataGlobal.t('button.close'),
+                    cancelButtonText: Things.DataGlobal.t('button.detail'),
                     closeOnConfirm: true,
                     closeOnCancel: true
-
-                }, function(isConfirm) {
+                }, function (isConfirm) {
                     if (isConfirm) {
+                        // do nothing
+                    } else {
                         var errorPage = document.createElement('things-error-page');
                         errorPage.errorId = response.error_id;
                         me.openPopupView(errorPage, true);
