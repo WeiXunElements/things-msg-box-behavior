@@ -80,12 +80,19 @@ Copyright © HatioLab Inc. All rights reserved.
      */
     Things.MsgBoxBehaviorImpl = {
 
+        properties: {
+            audioSrc: {
+                type: String,
+                value: './sounds/01.wav'
+            }
+        },
+
         /**
          * Info 메시지 Box를 Open한다.
          *********
          * @param {Object} config #### :MessageBox 구성을 위한 Configuration
          */
-        openInfoMsg: function(config) {
+        openInfoMsg: function (config) {
             swal(config);
         },
 
@@ -96,8 +103,8 @@ Copyright © HatioLab Inc. All rights reserved.
          * @param {Function} okCallback #### :OK 버튼 클릭시 콜백 함수
          * @param {Function} cancelCallback #### :Cancel 버튼 클릭시 콜백 함수
          */
-        openConfirmMsg: function(config, okCallback, cancelCallback) {
-            swal(config, function(isConfirm) {
+        openConfirmMsg: function (config, okCallback, cancelCallback) {
+            swal(config, function (isConfirm) {
                 if (isConfirm) {
                     if (okCallback) okCallback();
                 } else {
@@ -112,8 +119,8 @@ Copyright © HatioLab Inc. All rights reserved.
          * @param {Object} config #### :MessageBox 구성을 위한 Configuration
          * @param {Function} promptCallback #### :Input 메시지를 처리하기 위한 함수
          */
-        openPromptMsg: function(config, promptCallback) {
-            swal(config, function(inputValue) {
+        openPromptMsg: function (config, promptCallback) {
+            swal(config, function (inputValue) {
                 if (!inputValue) {
                     swal.showInputError(Things.DataGlobal.t('error.SHOULD_NOT_BE_EMPTY', {
                         value: 'input'
@@ -130,7 +137,7 @@ Copyright © HatioLab Inc. All rights reserved.
          *********
          * @param {Object} response #### :Ajax 호출 후 Error Response
          */
-        openResponseError: function(response) {
+        openResponseError: function (response) {
             if (!response) return;
 
             if (response.body) response = response.body;
@@ -140,6 +147,8 @@ Copyright © HatioLab Inc. All rights reserved.
             } else {
                 this.openElidomResponseError(response);
             }
+
+            this.playSounds();
         },
 
         /**
@@ -147,7 +156,7 @@ Copyright © HatioLab Inc. All rights reserved.
          * @param {Object} response #### :Elidom 프레임워크에서 던진 Error Response
          * ******
          */
-        openDefaultResponseError: function(response) {
+        openDefaultResponseError: function (response) {
             var htmlText = '<span>Status<span> : ' + response.status + '<br/><br/>' +
                 '<span>Path<span> : ' + response.path + '<br/><br/>' +
                 '<p><span>Message</span> : ' + response.message;
@@ -203,12 +212,25 @@ Copyright © HatioLab Inc. All rights reserved.
             }
         },
 
+        playSounds: function () {
+            if (this.querySelector('audio')) {
+                this.querySelector('audio').play();
+            } else {
+                let audio = document.createElement('audio');
+                audio.src = this.audioSrc;
+                audio.type = 'audio/wav';
+                audio.play();
+
+                this.appendChild(audio);
+            }
+        },
+
         /**
          * unkown error를 출력
          *******
          * @param {Object} response #### :Ajax 호출 후 Error Response
          */
-        openUnkownError: function(response) {
+        openUnkownError: function (response) {
             this.openInfoMsg({
                 type: 'error',
                 title: Things.DataGlobal.t('label.error'),
@@ -223,7 +245,7 @@ Copyright © HatioLab Inc. All rights reserved.
          *******
          * @param {Object} msg #### :Ajax 호출 후 toase message Response
          */
-        showToastMsg: function(msg) {
+        showToastMsg: function (msg) {
             var event = new CustomEvent('things-show-toast', {
                 'detail': {
                     msg: msg
