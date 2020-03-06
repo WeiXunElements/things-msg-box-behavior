@@ -193,13 +193,18 @@ Copyright © HatioLab Inc. All rights reserved.
                     htmlText += '<span>' + response.detail + '</span><br/><br/>';
                 }
 
+                // show error detail button flag
+                let showErrorDetail = true;
+                if (this.globals && this.globals.user && this.globals.user.show_error_detail)
+                    showErrorDetail = this.globals.user.show_error_detail;
+
                 var me = this;
                 swal({
                     title: response.code,
                     text: htmlText,
                     html: true,
                     type: 'error',
-                    showCancelButton: true,
+                    showCancelButton: showErrorDetail,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: Things.DataGlobal.t('button.close'),
                     cancelButtonText: Things.DataGlobal.t('button.detail'),
