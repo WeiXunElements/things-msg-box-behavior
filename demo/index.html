@@ -1,114 +1,108 @@
 <!--
 @license
-Copyright © HatioLab Inc. All rights reserved.
+Copyright © 2015-2021 Shenzhen Weixun All rights reserved.
 -->
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" />
     <title>things-msg-box-behavior Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../things-msg-box-behavior.html">
-    <link rel="import" href="../../paper-button/paper-button.html">
-    <link rel="import" href="../../paper-toast/paper-toast.html">
-</head>
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html" />
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html" />
+    <link rel="import" href="../things-msg-box-behavior.html" />
+    <link rel="import" href="../../paper-button/paper-button.html" />
+    <link rel="import" href="../../paper-toast/paper-toast.html" />
+  </head>
 
-<body unresolved>
+  <body unresolved>
     <demo-snippet class="centered-demo">
-        <template>
-            <template is="dom-bind">
-                <things-i18n-msg></things-i18n-msg>
-                <demo-msg-box></demo-msg-box>
-                <dom-module id="demo-msg-box">
-                    <template>
-                        <style>
-                             :host {
-                                display: block;
-                            }
-                            paper-button {
-                              margin-left: 10px;
-                              margin-right: 10px;
-                              width: 240px;
-                            }
+      <template>
+        <template is="dom-bind">
+          <things-i18n-msg></things-i18n-msg>
+          <demo-msg-box></demo-msg-box>
+          <dom-module id="demo-msg-box">
+            <template>
+              <style>
+                :host {
+                  display: block;
+                }
+                paper-button {
+                  margin-left: 10px;
+                  margin-right: 10px;
+                  width: 240px;
+                }
+              </style>
 
-                        </style>
-
-                        openInfoMsg : <br><paper-button raised  on-tap="onOpenInfoMsg">Open Info Msg</paper-button><br>
-                        showToastMsg : <br><paper-button raised on-tap="showToastMsg">Toast Msg</paper-button><br>
-                        <paper-toast id="toast" text="Your draft has been discarded."></paper-toast>
-                      openConfirmMsg : <br><paper-button id="button1"raised on-tap="onOpenConfirmMsg">Button One</paper-button><br>
-                      openPromptMsg : <br><paper-button id="button2"raised on-tap="onOpenPromptMsg">Button Input</paper-button><br>
-                    </template>
-                    <script>
-                        Polymer({
-                            is: 'demo-msg-box',
-                            behaviors: [
-                                Things.MsgBoxBehavior
-                            ],
-                            // listeners: {
-                            //     'things-show-toast': 'toast.open'
-                            // },
-                            ready: function() {
-                                document.addEventListener('things-show-toast', this.openToast.bind(this))
-                            },
-                            onOpenInfoMsg: function() {
-                                var config = {
-                                    type: 'warning', // info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
-                                    title: 'warning',
-                                    text: 'open information massagebox'
-                                }
-                                this.openInfoMsg(config)
-                            },
-                            openToast: function() {
-                                this.$.toast.open();
-                            },
-                            onOpenConfirmMsg: function() {
-                                var config = {
-                                    type: 'warning', // info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
-                                    title: 'warning',
-                                    text: 'Change Button Number ?',
-                                    showConfirmButton: 'ture',
-                                    showCancelButton: 'ture',
-
-                                }
-                                this.openConfirmMsg(config,this.okCallback,this.cancelCallback);
-                            },
-                            okCallback: function() {
-                                  if(this.button1.innerHTML=="Button Two")
-                                  {this.button1.innerHTML="Button One";}
-                               else{
-                                this.button1.innerHTML="Button Two";}
-                            },
-                            cancelCallback: function() {
-
-                            },
-                            onOpenPromptMsg: function() {
-                                var config = {
-                                    type: 'prompt', // info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
-                                    title: 'Input',
-                                    text: 'Input Button Text: ',
-                                    showConfirmButton: 'ture',
-                                    showCancelButton: 'ture',
-                                    closeOnCancel:'false'
-
-                                }
-                                this.openPromptMsg(config,this.changemessage);
-                            },
-                            changemessage: function(text) {
-                              this.button2.innerHTML=text;
-                            }
-
-                        });
-
-                    </script>
-                </dom-module>
+              openInfoMsg : <br /><paper-button raised on-tap="onOpenInfoMsg">Open Info Msg</paper-button><br />
+              showToastMsg : <br /><paper-button raised on-tap="showToastMsg">Toast Msg</paper-button><br />
+              <paper-toast id="toast" text="Your draft has been discarded."></paper-toast>
+              openConfirmMsg : <br /><paper-button id="button1" raised on-tap="onOpenConfirmMsg"
+                >Button One</paper-button
+              ><br />
+              openPromptMsg : <br /><paper-button id="button2" raised on-tap="onOpenPromptMsg"
+                >Button Input</paper-button
+              ><br />
             </template>
+            <script>
+              Polymer({
+                is: "demo-msg-box",
+                behaviors: [Things.MsgBoxBehavior],
+                // listeners: {
+                //     'things-show-toast': 'toast.open'
+                // },
+                ready: function () {
+                  document.addEventListener("things-show-toast", this.openToast.bind(this));
+                },
+                onOpenInfoMsg: function () {
+                  var config = {
+                    type: "warning", // info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
+                    title: "warning",
+                    text: "open information massagebox",
+                  };
+                  this.openInfoMsg(config);
+                },
+                openToast: function () {
+                  this.$.toast.open();
+                },
+                onOpenConfirmMsg: function () {
+                  var config = {
+                    type: "warning", // info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
+                    title: "warning",
+                    text: "Change Button Number ?",
+                    showConfirmButton: "ture",
+                    showCancelButton: "ture",
+                  };
+                  this.openConfirmMsg(config, this.okCallback, this.cancelCallback);
+                },
+                okCallback: function () {
+                  if (this.button1.innerHTML == "Button Two") {
+                    this.button1.innerHTML = "Button One";
+                  } else {
+                    this.button1.innerHTML = "Button Two";
+                  }
+                },
+                cancelCallback: function () {},
+                onOpenPromptMsg: function () {
+                  var config = {
+                    type: "prompt", // info, success, warning, error, input, prompt (input과 prompt는 동일) 중 하나
+                    title: "Input",
+                    text: "Input Button Text: ",
+                    showConfirmButton: "ture",
+                    showCancelButton: "ture",
+                    closeOnCancel: "false",
+                  };
+                  this.openPromptMsg(config, this.changemessage);
+                },
+                changemessage: function (text) {
+                  this.button2.innerHTML = text;
+                },
+              });
+            </script>
+          </dom-module>
         </template>
+      </template>
     </demo-snippet>
-</body>
-
+  </body>
 </html>

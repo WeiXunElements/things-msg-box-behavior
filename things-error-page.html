@@ -1,13 +1,13 @@
 <!--
 @license
-Copyright © HatioLab Inc. All rights reserved.
+Copyright © 2015-2021 Shenzhen Weixun All rights reserved.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer.html" />
 
-<link rel="import" href="../iron-form/iron-form.html">
-<link rel="import" href="../paper-input/paper-textarea.html">
-<link rel="import" href="../paper-material/paper-material.html">
-<link rel="import" href="../paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../iron-form/iron-form.html" />
+<link rel="import" href="../paper-input/paper-textarea.html" />
+<link rel="import" href="../paper-material/paper-material.html" />
+<link rel="import" href="../paper-toolbar/paper-toolbar.html" />
 
 <!--link rel="import" href="../things-ajax/things-ajax.html"-->
 
@@ -19,15 +19,15 @@ Copyright © HatioLab Inc. All rights reserved.
     </things-error-page>
 -->
 <dom-module id="things-error-page">
-	<template>
-		<style>
-			:host {
-				--things-textarea-label-width: 25%;
-				--things-autogrow-textarea-width : 65%;
-			}
-		</style>
+  <template>
+    <style>
+      :host {
+        --things-textarea-label-width: 25%;
+        --things-autogrow-textarea-width: 65%;
+      }
+    </style>
 
-		<!--things-ajax
+    <!--things-ajax
 			auto
 			id="resource"
 			method="GET"
@@ -51,134 +51,134 @@ Copyright © HatioLab Inc. All rights reserved.
 			</div>
 		</paper-material-->
 
-		<style is="custom-style" include="iron-flex iron-flex-alignment"></style>
-		<style>
-			:host {
-				display: block;
-				box-sizing: border-box;
-				@apply(--things-default-padding);
-				@apply(--layout-vertical);
-				@apply(--layout-flex);
-			}
-			form {
-				@apply(--layout-flex);
-			}
-			paper-toolbar {
-				background-color:var(--things-white-background-color);
-				height: 50px;
-				@apply(--things-tight-padding);
-			}
-			paper-toolbar::shadow #bottomBar {
-				height: 50px;
-				@apply(--layout-horizontal);
-				@apply(--layout-end-justified);
-				padding: 0 10px;
-			}
-		</style>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        @apply (--things-default-padding);
+        @apply (--layout-vertical);
+        @apply (--layout-flex);
+      }
+      form {
+        @apply (--layout-flex);
+      }
+      paper-toolbar {
+        background-color: var(--things-white-background-color);
+        height: 50px;
+        @apply (--things-tight-padding);
+      }
+      paper-toolbar::shadow #bottomBar {
+        height: 50px;
+        @apply (--layout-horizontal);
+        @apply (--layout-end-justified);
+        padding: 0 10px;
+      }
+    </style>
 
-		<things-ajax
-			auto
-			id="resource"
-			method="GET"
-			resource-url="[[resourceUrl]]"
-			resource-id="[[errorId]]"
-			last-response="{{resource}}">
-		</things-ajax>
+    <things-ajax
+      auto
+      id="resource"
+      method="GET"
+      resource-url="[[resourceUrl]]"
+      resource-id="[[errorId]]"
+      last-response="{{resource}}"
+    >
+    </things-ajax>
 
-		<form is="iron-form" id="error-form">
-			<div id="fields" class="layout vertical flex">
-				<things-input-field name="issue_date" label="Issued Date" value="[[resource.issue_date]]"></things-input-field>
-				<things-input-field name="status" label="Status" value="[[resource.status]]"></things-input-field>
-				<things-input-field name="uri" label="URI" value="[[resource.uri]]"></things-input-field>
-				<things-input-field name="method" label="Method" value="[[resource.method]]"></things-input-field>
-				<things-input-field name="message" label="Message" value="[[resource.message]]"></things-input-field>
-			</div>
-			<div id="fields" class="layout vertical flex">
-				<things-textarea name="stack_trace" label="Detail" rows="20" value="[[resource.stack_trace]]"></things-textarea>
-			</div>
-		</form>
+    <form is="iron-form" id="error-form">
+      <div id="fields" class="layout vertical flex">
+        <things-input-field name="issue_date" label="Issued Date" value="[[resource.issue_date]]"></things-input-field>
+        <things-input-field name="status" label="Status" value="[[resource.status]]"></things-input-field>
+        <things-input-field name="uri" label="URI" value="[[resource.uri]]"></things-input-field>
+        <things-input-field name="method" label="Method" value="[[resource.method]]"></things-input-field>
+        <things-input-field name="message" label="Message" value="[[resource.message]]"></things-input-field>
+      </div>
+      <div id="fields" class="layout vertical flex">
+        <things-textarea name="stack_trace" label="Detail" rows="20" value="[[resource.stack_trace]]"></things-textarea>
+      </div>
+    </form>
 
-		<!--paper-toolbar id="toolbar" justify='end'>
+    <!--paper-toolbar id="toolbar" justify='end'>
 			<div class="bottom">
 				<things-button-bar id="button-group" buttons="[[buttons]]"></things-button-bar>
 			</div>
 		</paper-toolbar-->
-	</template>
+  </template>
 
-	<script>
-		Polymer({
+  <script>
+    Polymer({
+      is: "things-error-page",
 
-			is: 'things-error-page',
+      properties: {
+        /**
+         * 에러 페이지 타이틀
+         * ******
+         * @type {String}
+         */
+        title: {
+          type: String,
+        },
 
-			properties: {
-				/**
-				 * 에러 페이지 타이틀
-				 * ******
-				 * @type {String}
-				 */
-				title: {
-					type: String
-				},
+        /**
+         * 에러 아이디
+         * ******
+         * @type {String}
+         */
+        errorId: {
+          type: String,
+        },
 
-				/**
-				 * 에러 아이디
-				 * ******
-				 * @type {String}
-				 */
-				errorId: {
-					type: String
-				},
+        /**
+         * 에러 아이디로 에러를 조회할 URL
+         * ******
+         * @type {String}
+         */
+        resourceUrl: {
+          type: String,
+          computed: "_computeResourceUrl(errorId)",
+        },
 
-				/**
-				 * 에러 아이디로 에러를 조회할 URL
-				 * ******
-				 * @type {String}
-				 */
-				resourceUrl: {
-					type: String,
-					computed: '_computeResourceUrl(errorId)'
-				},
+        /**
+         * 에러 아이디로 조회한 에러 정보
+         * ******
+         * @type {Object}
+         */
+        resource: {
+          type: Object,
+          observer: "_resourceChanged",
+        },
 
-				/**
-				 * 에러 아이디로 조회한 에러 정보
-				 * ******
-				 * @type {Object}
-				 */
-				resource: {
-					type: Object,
-					observer: '_resourceChanged'
-				},
-
-				/**
-				 * 버튼
-				 */
-				/*buttons: {
+        /**
+         * 버튼
+         */
+        /*buttons: {
 					type: Array,
 					value: [{ id: 'send-mail-btn', text: 'send-mail' }]
 				}*/
-			},
-			/**
-			 * closeDialog
-			 * *******
-			 */
-			closeDialog: function() {
-    		var event = new CustomEvent('things-close-popup-view', { detail : this });
-    		document.dispatchEvent(event);
-			},
+      },
+      /**
+       * closeDialog
+       * *******
+       */
+      closeDialog: function () {
+        var event = new CustomEvent("things-close-popup-view", { detail: this });
+        document.dispatchEvent(event);
+      },
 
-			/**
-			 * 에러 정보가 변경한 이 후
-			 */
-			_resourceChanged: function(resource) {
-				this.title = resource.error_type;
-			},
+      /**
+       * 에러 정보가 변경한 이 후
+       */
+      _resourceChanged: function (resource) {
+        this.title = resource.error_type;
+      },
 
-			/**
-			 * 에러 아이디로 에러 조회 URL 설정
-			 */
-			_computeResourceUrl: function(errorId) {
-				return 'error_logs/' + errorId;
-			}
-		});
-	</script>
+      /**
+       * 에러 아이디로 에러 조회 URL 설정
+       */
+      _computeResourceUrl: function (errorId) {
+        return "error_logs/" + errorId;
+      },
+    });
+  </script>
 </dom-module>
